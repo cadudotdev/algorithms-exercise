@@ -54,11 +54,6 @@ async function findIndexByBinarySearch(name, data) {
 (async () => {
     const data = await getData();
 
-    if (!Array.isArray(data)) {
-        console.error('No data found');
-        return;
-    }
-
     findIndexByNormalSearch('Julie', data).then(idx => {
         console.log('Normal search index:', idx);
     });
