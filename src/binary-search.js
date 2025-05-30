@@ -1,6 +1,6 @@
 const dataUrl = 'https://raw.githubusercontent.com/dominictarr/random-name/refs/heads/master/first-names.json';
 
-async function getAllData() {
+async function getData() {
     return fetch(dataUrl)
         .then(response => response.json())
         .then(data => {
@@ -12,7 +12,7 @@ async function getAllData() {
 }
 
 // Normal search function
-async function findIndex(name, data) {
+async function findIndexByNormalSearch(name, data) {
     const start = performance.now();
     for (let i = 0; i < data.length; i++) {
         if (data[i] === name) {
@@ -27,7 +27,7 @@ async function findIndex(name, data) {
 }
 
 // Binary search function
-async function binarySearch(name, data) {
+async function findIndexByBinarySearch(name, data) {
     const start = performance.now();
     let left = 0;
     let right = data.length - 1;
@@ -52,17 +52,17 @@ async function binarySearch(name, data) {
 }
 
 (async () => {
-    const data = await getAllData();
+    const data = await getData();
 
     if (!Array.isArray(data)) {
         console.error('No data found');
         return;
     }
 
-    findIndex('Julie', data).then(idx => {
+    findIndexByNormalSearch('Julie', data).then(idx => {
         console.log('Normal search index:', idx);
     });
-    binarySearch('Julie', data).then(idx => {
+    findIndexByBinarySearch('Julie', data).then(idx => {
         console.log('Binary search index:', idx);
     });
 })();
